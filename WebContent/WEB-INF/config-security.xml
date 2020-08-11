@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+xmlns:beans="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+<!-- config các quyền truy cập (access) cho các đường dẫn (intercept-url) -->
+	<http use-expressions="true">
+		<csrf disabled="true"/> <!-- dam bao tinh bao mat...chong tan cong cac hacker  tim hieu csrf -->
+        
+         <!-- ADMIN: toàn quyền, MOD: qly truyện - qly danh mục, USER: xem phần truyện-xem danh mục -->
+         
+		<intercept-url pattern="/admin/index" access="hasAnyRole('ROLE_MOD', 'ROLE_ADMIN', 'ROLE_USER')" />
+		<intercept-url pattern="/admin"    access="hasAnyRole('ROLE_MOD', 'ROLE_ADMIN', 'ROLE_USER')" /> <!-- thêm sửa xóa truyện -->
+		
+		<!-- DÙNG /** ĐỂ LẤY CÁC PATH CÓ TRUYỀN ID ...
+			/* : sẻ hiểu /edit,/del,/add. 		/**: sẻ hiểu /edit/1, /add/1... 
+			hasAnyRole: nhiều quyền, hasRole: 1 quyền
+		-->
+		<intercept-url pattern="/admin/cat/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD','ROLE_USER')" />
+		<intercept-url pattern="/admin/cat/**" 	  access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+		<intercept-url pattern="/admin/blog/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		<intercept-url pattern="/admin/blog/**"    access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+		<intercept-url pattern="/admin/product/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		<intercept-url pattern="/admin/product/**"    access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+		<intercept-url pattern="/admin/user/index" access="hasAnyRole('ROLE_ADMIN', 'ROLE_MOD', 'ROLE_USER')" />
+		<intercept-url pattern="/admin/user/**"    access="hasAnyRole('ROLE_ADMIN', 'ROLE_MOD', 'ROLE_USER')" />
+		
+		<intercept-url pattern="/admin/introduce/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		<intercept-url pattern="/admin/introduce/**"    access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+		<intercept-url pattern="/admin/feedback/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		<intercept-url pattern="/admin/feedback/**"    access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+		<intercept-url pattern="/admin/comment/index" access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		<intercept-url pattern="/admin/comment/**"    access="hasAnyRole('ROLE_ADMIN','ROLE_MOD')" />
+		
+        <intercept-url pattern="/**" access="permitAll()" /> <!-- ai củng vào được -->
+ 
+        <access-denied-handler error-page="/auth/admin/403" />  <!-- chuyển sang trang thông báo lỗi -->
+ 
+         <!-- 
+			login-page:đường dẫn đến trang login 
+         	
+          	login-processing-url: 
+          	ví dụ : <form action="${pageContext.request.contextPath}/haha"  method="post"> (VÀO login.jsp)
+          			thì ta sẻ config ở đây là: login-processing-url="/haha"
+          	
+            default-target-url="/admin" ..: khi đăng nhập thành công chuyển hướng sag trang nào đó
+            
+            authentication-failure-url: nếu đăng nhập sai sẻ chuyển sang trang, và thông báo lỗi
+            username-parameter: lấy name ở ô input thông qa thuộc tính name="" (trong <input>)
+            password-parameter: lấy pass ở ô input thông qa thuộc tính name="" (trong <input>)
+         -->
+        
+        <form-login login-page='/auth/admin/login' login-processing-url="/haha"  
+            default-target-url="/admin/index" always-use-default-target="false" 
+            authentication-failure-url="/auth/admin/login?error=loginErr" 
+            username-parameter="username"
+            password-parameter="password" />
+ 
+ 			<!-- 
+ 			logout-url: đường dẫn logout
+ 			logout-success-url: logout thành công chuyển về đường dẫn gì -->
+        <logout logout-url="/logout" logout-success-url="/auth/admin/login"
+            delete-cookies="JSESSIONID" invalidate-session="true" /> <!-- xoa session -->
+    </http>
+    
+    <authentication-manager>
+        <!-- authentication from database -->
+        <authentication-provider>
+           	<password-encoder hash = "bcrypt" /> <!-- kiểu mã hóa của passwword -->
+            
+            <!--  
+            	myDataSource: để biết được ta đang trỏ đến DB nào(trong config-jdbc)
+            	users-by-username-query: kiểm tra người dùng đăng nhập đúg hay sai
+            	active: là cột trong DB, vi dụ: active có 2 giá trị 0 và 1, 0(k cho vào) 1(cho đăng nhập vào)
+             	authorities-by-username-query : ktra ng dùng đó có quyền gì-->
+            <jdbc-user-service data-source-ref="myDataSource"
+                users-by-username-query="select username, password, active from users where username=? "
+                authorities-by-username-query="select username, concat('ROLE_', roles.name_role) as role from users INNER JOIN roles ON roles.id_role = users.id_role where users.username = ? " />
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
+
+
+

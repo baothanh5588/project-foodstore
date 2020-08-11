@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+	<!-- admin -->
+	<definition name="admin.food.template" template="/WEB-INF/templates/admin/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/templates/admin/header.jsp" />
+		<put-attribute name="content" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/templates/admin/footer.jsp" />
+		<put-attribute name="left_bar" value="/WEB-INF/templates/admin/left_bar.jsp" />
+	</definition>
+	
+	<!-- admin index -->
+	<definition name="admin.index.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/index/index.jsp"/>
+	</definition>
+	
+	<!-- auth -->
+	<definition name="auth.admin.login" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/auth/login.jsp"/>
+	</definition>
+	
+	<definition name="auth.admin.err403" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/auth/403.jsp"/>
+	</definition>
+	
+	<!-- cat -->
+	<definition name="admin.cat.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/cat/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.cat.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/cat/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.cat.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/cat/edit.jsp"/>
+	</definition>		
+	
+	<!-- user -->
+	<definition name="admin.user.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/user/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.user.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/user/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.user.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/user/edit.jsp"/>
+	</definition>	
+	
+	<!-- product -->
+	<definition name="admin.product.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/product/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.product.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/product/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.product.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/product/edit.jsp"/>
+	</definition>	
+	
+	<!-- blog -->
+	<definition name="admin.blog.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/blog/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.blog.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/blog/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.blog.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/blog/edit.jsp"/>
+	</definition>		
+	
+	<!-- introduce -->
+	<definition name="admin.introduce.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/introduce/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.introduce.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/introduce/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.introduce.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/introduce/edit.jsp"/>
+	</definition>
+	
+	<!-- feedback -->
+	<definition name="admin.feedback.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/feedback/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.feedback.reply" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/feedback/reply.jsp"/>
+	</definition>	
+	
+	<!-- comment -->
+	<definition name="admin.comment.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/comment/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.comment.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/comment/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.comment.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/comment/edit.jsp"/>
+	</definition>
+	
+	<!-- member -->
+	<definition name="admin.member.index" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/member/index.jsp"/>
+	</definition>	
+
+	<definition name="admin.member.add" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/member/add.jsp"/>
+	</definition>	
+	
+	<definition name="admin.member.edit" extends="admin.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/member/edit.jsp"/>
+	</definition>
+	<!-- ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+	
+	<!-- public -->
+	<definition name="public.food.template" template="/WEB-INF/templates/public/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+		<put-attribute name="content" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+	</definition>
+	
+	<!-- public index -->
+	<definition name="public.index.index" extends="public.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/public/index.jsp"/>
+	</definition>
+	
+		<!-- public 1-->
+	<definition name="public1.food.template" template="/WEB-INF/templates/public/template1.jsp">
+		<put-attribute name="header1" value="/WEB-INF/templates/public/header1.jsp" />
+		<put-attribute name="content1" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+	</definition>
+	
+	<definition name="public.cat_sp.cat_sp" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/cat_sp.jsp"/>
+	</definition>
+	<definition name="public.detail_sp.detail_sp" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/detail_sp.jsp"/>
+	</definition>
+	<definition name="public.cat_blog.cat_blog" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/cat_blog.jsp"/>
+	</definition>
+	<definition name="public.detail_blog.detail_blog" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/detail_blog.jsp"/>
+	</definition>
+	<definition name="public.gioi_thieu.gioi_thieu" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/gioi_thieu.jsp"/>
+	</definition>
+	<definition name="public.lien_he.lien_he" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/lien_he.jsp"/>
+	</definition>
+	<definition name="public.search.search" extends="public1.food.template">
+		<put-attribute name="content1" value="/WEB-INF/jsp/public/search.jsp"/>
+	</definition>
+	
+	<definition name="public.login.login" extends="public.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/public/login.jsp"/>
+	</definition>
+	<definition name="public.register.register" extends="public.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/public/register.jsp"/>
+	</definition>
+	<definition name="public.cart.index" extends="public.food.template">
+		<put-attribute name="content" value="/WEB-INF/jsp/public/cart.jsp"/>
+	</definition>	
+</tiles-definitions>

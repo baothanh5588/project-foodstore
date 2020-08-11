@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  
+  <!-- Khi chạy 1 project thì web.xml chạy đầu tiên. Cấu hình web.xml  để nó chuyển đến trang dispatcher-servlet.xml -->
+  <display-name>springD1</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+    <absolute-ordering/>
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- THÊM TIẾNG VIỆT VÀO DB MÀ K BỊ LỖI PHÔNG CHỬ -->
+  <filter>
+    <filter-name>encoding-filter</filter-name>
+    <filter-class>
+		     org.springframework.web.filter.CharacterEncodingFilter
+	</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encoding-filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+  </jsp-config>
+  
+  
+
+  <!-- GIÚP HIỂU ĐƯỢC CÁC ĐƯỜNG DẪN CÓ ĐUÔI NHƯ MONG MUỐN -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+    <url-pattern>*.css</url-pattern>
+    <url-pattern>*.png</url-pattern>
+    <url-pattern>*.PNG</url-pattern>
+    <url-pattern>*.gif</url-pattern>
+    <url-pattern>*.GIF</url-pattern>
+    <url-pattern>*.jpg</url-pattern>
+    <url-pattern>*.JPG</url-pattern>
+    <url-pattern>*.jpeg</url-pattern>
+    <url-pattern>*.JPEG</url-pattern>
+    <url-pattern>*.eot</url-pattern>
+    <url-pattern>*.svg</url-pattern>
+    <url-pattern>*.ttf</url-pattern>
+    <url-pattern>*.woff</url-pattern>
+  </servlet-mapping>
+  
+  <!-- ĐỂ ĐỌC ĐƯƠC NHIỀU FILE .xml -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param> <!-- chay cung web.xml khi chay  -->
+    <param-name>contextConfigLocation</param-name>
+    <param-value> 
+			/WEB-INF/config-jdbc.xml
+ 			/WEB-INF/config-security.xml
+ 	</param-value>
+  </context-param>
+  
+  <!-- khi chạy 1 ứng dụng web lên để nó đọc được các đường dẫn của ta, ktra các đường dẫn đó có thuộc quyền mà ta cho phép k -->
+<filter>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>springSecurityFilterChain</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+  
+  
+</web-app>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        <mvc:annotation-driven/>
+        
+		<context:component-scan base-package="controller" />  <!-- trỏ tới file java ở package nào -->
+		<context:component-scan base-package="dao" />  <!-- trỏ tới file java ở package nào -->
+
+	<!-- Cấu hình spring theo mô hình MVC -->
+
+	<!-- config view (jsp) -->
+	<!--<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
+		value=".jsp" /> </bean> -->
+	
+	<!-- TÁCH GHÉP GIAO DIỆN -->
+	<!-- bean này để đọc đc file template.xml(cấu hinh view) -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/template.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- bean này để báo hiệu trả về view nào -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	
+	
+	
+	<!-- bean này để cấu hình các giá trị xuất hiện thường xuyên-->
+	<bean id="define" class="constant.Defines">
+		<property name="URL_PUBLIC" value="/foodstore/templates/public" />
+		<property name="URL_ADMIN" value="/foodstore/templates/admin" />
+		<property name="ROW_COUNT_ADMIN" value="5" />
+	</bean>
+	
+	<!-- cấu hình dung lượng tối đa của file được phép tải lên -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="100000000"/>
+    </bean>
+    
+    <bean id="stringUtils" class="utils.StringUtils">
+	</bean>
+   	<bean id="renameFile" class="utils.RenameFile">
+	</bean>
+	<bean id="slugUtils" class="utils.SlugUtils">
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
